@@ -1,8 +1,7 @@
+server:
+  port: 8080
+
 spring:
   profiles:
     active: dev
 
-server:
-  port: 8080
-  servlet:
-    context-path: /

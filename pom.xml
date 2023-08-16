@@ -11,6 +11,7 @@
 
     <modules>
         <module>asutinX-web</module>
+        <module>austinX-common</module>
     </modules>
 
     <parent>
@@ -28,6 +29,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -52,13 +57,14 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
+    <build>
+        <plugins>
+            <plugin>
+                <!--SpringBoot插件，可以把应用打包为可执行Jar-->
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
