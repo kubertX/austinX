@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kubertX.austinX.common.mapper.ChannelAccountMapper">
+  <resultMap id="BaseResultMap" type="com.kubertX.austinX.common.domain.ChannelAccount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="send_channel" jdbcType="TINYINT" property="sendChannel" />
+    <result column="account_config" jdbcType="VARCHAR" property="accountConfig" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="created" jdbcType="INTEGER" property="created" />
+    <result column="updated" jdbcType="INTEGER" property="updated" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, send_channel, account_config, creator, created, updated, is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from channel_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.kubertX.austinX.common.domain.ChannelAccount">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_account (name, send_channel, account_config, 
+      creator, created, updated, 
+      is_deleted)
+    values (#{name,jdbcType=VARCHAR}, #{sendChannel,jdbcType=TINYINT}, #{accountConfig,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}, #{updated,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kubertX.austinX.common.domain.ChannelAccount">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into channel_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sendChannel != null">
+        send_channel,
+      </if>
+      <if test="accountConfig != null">
+        account_config,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sendChannel != null">
+        #{sendChannel,jdbcType=TINYINT},
+      </if>
+      <if test="accountConfig != null">
+        #{accountConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kubertX.austinX.common.domain.ChannelAccount">
+    update channel_account
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sendChannel != null">
+        send_channel = #{sendChannel,jdbcType=TINYINT},
+      </if>
+      <if test="accountConfig != null">
+        account_config = #{accountConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kubertX.austinX.common.domain.ChannelAccount">
+    update channel_account
+    set name = #{name,jdbcType=VARCHAR},
+      send_channel = #{sendChannel,jdbcType=TINYINT},
+      account_config = #{accountConfig,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      created = #{created,jdbcType=INTEGER},
+      updated = #{updated,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

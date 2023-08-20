@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kubertX</groupId>
+    <groupId>com.kubertX.austinX</groupId>
     <artifactId>austinX</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -26,6 +26,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hutool.version>5.8.9</hutool.version>
+        <austinX-common.version>1.0-SNAPSHOT</austinX-common.version>
+        <mybatis.version>2.2.2</mybatis.version>
+        <mysql.version>8.0.28</mysql.version>
     </properties>
 
     <dependencies>
@@ -57,14 +60,30 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <!--SpringBoot插件，可以把应用打包为可执行Jar-->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.kubertX.austinX</groupId>
+                <artifactId>austinX-common</artifactId>
+                <version>${austinX-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
 
 </project>
