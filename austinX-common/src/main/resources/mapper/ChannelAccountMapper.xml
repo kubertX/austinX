@@ -20,7 +20,7 @@
     from channel_account
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from channel_account
     where id = #{id,jdbcType=BIGINT}
   </delete>
@@ -125,4 +125,16 @@
       is_deleted = #{isDeleted,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from channel_account
+  </select>
+  <select id="queryByChannelType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from channel_account
+    where send_channel = #{channelType}
+  </select>
 </mapper>

@@ -31,3 +31,9 @@ mybatis:
   # 设置扫描的 mapper.xml
   mapper-locations:
     - classpath:mapper/*.xml
+
+pagehelper:
+  auto-dialect: true
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql

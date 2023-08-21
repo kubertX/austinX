@@ -302,4 +302,10 @@
       updated = #{updated,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message_template
+  </select>
 </mapper>
