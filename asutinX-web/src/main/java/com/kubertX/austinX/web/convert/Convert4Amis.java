@@ -1,7 +1,9 @@
 package com.kubertX.austinX.web.convert;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kubertX.austinX.common.domain.ChannelAccount;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Convert4Amis {
@@ -120,6 +123,95 @@ public class Convert4Amis {
             }
             result.put(field.getName(), ReflectUtil.getFieldValue(obj, field));
         }
+        return result;
+    }
+
+    public static CommonAmisVo getTestContent(String msgContent) {
+        Set<String> placeholderList = getPlaceholderList(msgContent);
+        if (CollUtil.isEmpty(placeholderList)) {
+            return null;
+        }
+
+        // placeholderList!=null  说明有占位符
+        CommonAmisVo testParam = CommonAmisVo.builder()
+                .type("input-table")
+                .name("testParam")
+                .addable(true)
+                .editable(true)
+                .needConfirm(false)
+                .build();
+        List<CommonAmisVo.ColumnsDTO> columnsDtoS = new ArrayList<>();
+        for (String param : placeholderList) {
+            CommonAmisVo.ColumnsDTO dto = CommonAmisVo.ColumnsDTO.builder().name(param).label(param).type("input-text").required(true).quickEdit(true).build();
+            columnsDtoS.add(dto);
+        }
+        testParam.setColumns(columnsDtoS);
+        return testParam;
+    }
+
+
+    /**
+     * 获取占位符的参数
+     *
+     * @param content
+     * @return
+     */
+    public static Set<String> getPlaceholderList(String content) {
+        char[] textChars = content.toCharArray();
+        StringBuilder textSofar = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        // 存储占位符 位置信息集合
+        List<String> placeholderList = new ArrayList<>();
+        // 当前标识
+        int modeTg = IGNORE_TG;
+        for (int m = 0; m < textChars.length; m++) {
+            char c = textChars[m];
+            textSofar.append(c);
+            switch (c) {
+                case '{': {
+                    modeTg = START_TG;
+                    sb.append(c);
+                }
+                break;
+                case '$': {
+                    if (modeTg == START_TG) {
+                        sb.append(c);
+                        modeTg = READ_TG;
+                    } else {
+                        if (modeTg == READ_TG) {
+                            sb = new StringBuilder();
+                            modeTg = IGNORE_TG;
+                        }
+                    }
+                }
+                break;
+                case '}': {
+                    if (modeTg == READ_TG) {
+                        modeTg = IGNORE_TG;
+                        sb.append(c);
+                        String str = sb.toString();
+                        if (StrUtil.isNotEmpty(str)) {
+                            placeholderList.add(str);
+                            textSofar = new StringBuilder();
+                        }
+                        sb = new StringBuilder();
+                    } else if (modeTg == START_TG) {
+                        modeTg = IGNORE_TG;
+                        sb = new StringBuilder();
+                    }
+                    break;
+                }
+                default: {
+                    if (modeTg == READ_TG) {
+                        sb.append(c);
+                    } else if (modeTg == START_TG) {
+                        modeTg = IGNORE_TG;
+                        sb = new StringBuilder();
+                    }
+                }
+            }
+        }
+        Set<String> result = placeholderList.stream().map(s -> s.replaceAll("\\{", "").replaceAll("\\$", "").replaceAll("\\}", "")).collect(Collectors.toSet());
         return result;
     }
 }

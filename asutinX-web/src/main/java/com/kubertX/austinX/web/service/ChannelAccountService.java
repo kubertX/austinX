@@ -11,4 +11,6 @@ public interface ChannelAccountService {
     List<ChannelAccount> list();
 
     List<ChannelAccount> queryByChannelType(Integer channelType);
+
+    ChannelAccount queryById(Long id);
 }

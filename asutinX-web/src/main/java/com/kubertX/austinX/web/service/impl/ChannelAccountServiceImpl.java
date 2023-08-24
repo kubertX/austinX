@@ -33,4 +33,9 @@ public class ChannelAccountServiceImpl implements ChannelAccountService {
     public List<ChannelAccount> queryByChannelType(Integer channelType) {
         return accountMapper.queryByChannelType(channelType);
     }
+
+    @Override
+    public ChannelAccount queryById(Long id) {
+        return accountMapper.selectByPrimaryKey(id);
+    }
 }

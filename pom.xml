@@ -31,6 +31,7 @@
         <mysql.version>8.0.28</mysql.version>
         <mybatis.pagehelper.version>1.4.7</mybatis.pagehelper.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
     </properties>
 
     <dependencies>
@@ -93,6 +94,14 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+
+            <!--邮件发送-->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>${javax.mail.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

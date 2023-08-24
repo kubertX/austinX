@@ -9,4 +9,6 @@ public interface MessageTemplateService {
     MessageTemplate save(MessageTemplate messageTemplate);
 
     PageInfo<MessageTemplate> page(MessageTemplateParam param);
+
+    MessageTemplate queryById(Long id);
 }

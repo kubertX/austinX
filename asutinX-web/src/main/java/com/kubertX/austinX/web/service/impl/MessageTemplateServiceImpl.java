@@ -31,4 +31,9 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
         PageInfo<MessageTemplate> page = new PageInfo<>(list);
         return page;
     }
+
+    @Override
+    public MessageTemplate queryById(Long id) {
+        return mapper.selectByPrimaryKey(id);
+    }
 }
