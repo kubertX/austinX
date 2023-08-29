@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.kubertX.austinX.common.domain.MessageTemplate;
 import com.kubertX.austinX.web.convert.Convert4Amis;
 import com.kubertX.austinX.web.service.MessageTemplateService;
+import com.kubertX.austinX.web.service.EmailSendService;
 import com.kubertX.austinX.web.service.SendService;
 import com.kubertX.austinX.web.vo.BasicResultVO;
 import com.kubertX.austinX.web.vo.MessageTemplateParam;
@@ -54,11 +55,19 @@ public class MessageTemplateController {
         return new BasicResultVO<>(Convert4Amis.getTestContent(messageTemplate.getMsgContent()));
     }
 
-    @PostMapping("test")
+    @PostMapping("/test")
     public BasicResultVO<SendResponse> test(@RequestBody MessageTemplateParam messageTemplateParam){
         log.info("testContent:{}",JSONUtil.toJsonStr(messageTemplateParam));
 
         return new BasicResultVO<>(sendService.send(messageTemplateParam));
+    }
+
+
+    @PostMapping("/send2Pool")
+    public BasicResultVO<SendResponse> send2Pool(@RequestBody MessageTemplateParam messageTemplateParam){
+        log.info("testContent:{}",JSONUtil.toJsonStr(messageTemplateParam));
+
+        return new BasicResultVO<>(sendService.send2Pool(messageTemplateParam));
     }
 
 
