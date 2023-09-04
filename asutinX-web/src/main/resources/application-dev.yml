@@ -37,3 +37,27 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   params: count=countSql
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+## 简单日志配置
+logging:
+  ##  默认情况下 SpringBoot 将日志输出到控制台，不会写到日志文件。
+  ##  需要设置日志文件输出路径
+  ##  logging.file 或 logging.path 属性。二者不能同时使用，如若同时使用，则只有 logging.file 生效。
+  # logging.file.name=文件名（设置文件，可以是绝对路径，也可以是相对路径。例：logging.file=my.log）
+  # logging.file.path=日志文件路径（设置目录，会在该目录下创建spring.log文件，并写入日志内容。例：logging.path=/var/log）
+  file:
+    name: austin.log
+    #path: ~/idea-project/spring-boot-action/logs/action-logback/
+  level:
+    com.kubertX.auxtinX: info
+    # logging.config 设置使用详细的 logback.xml 配置
+    # 不设置会搜索 logback-spring.xml 和 defaults.xml
+    root: info
+  config:
