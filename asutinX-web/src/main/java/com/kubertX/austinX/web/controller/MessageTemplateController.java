@@ -65,9 +65,16 @@ public class MessageTemplateController {
 
     @PostMapping("/send2Pool")
     public BasicResultVO<SendResponse> send2Pool(@RequestBody MessageTemplateParam messageTemplateParam){
-        log.info("testContent:{}",JSONUtil.toJsonStr(messageTemplateParam));
+        log.info("send2Pool:{}",JSONUtil.toJsonStr(messageTemplateParam));
 
         return new BasicResultVO<>(sendService.send2Pool(messageTemplateParam));
+    }
+
+    @PostMapping("/send2Kafka")
+    public BasicResultVO<SendResponse> send2Kafka(@RequestBody MessageTemplateParam messageTemplateParam){
+        log.info("send2Kafka:{}",JSONUtil.toJsonStr(messageTemplateParam));
+
+        return new BasicResultVO<>(sendService.send2Kafka(messageTemplateParam));
     }
 
 

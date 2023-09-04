@@ -32,6 +32,7 @@
         <mybatis.pagehelper.version>1.4.7</mybatis.pagehelper.version>
         <fastjson.version>1.2.83</fastjson.version>
         <javax.mail.version>1.6.2</javax.mail.version>
+        <spring.kafka.versoin>2.8.10</spring.kafka.versoin>
     </properties>
 
     <dependencies>
@@ -46,6 +47,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!--spring-kafka-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,6 +83,7 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
+
             <!-- 分页助手 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -101,6 +108,8 @@
                 <artifactId>javax.mail</artifactId>
                 <version>${javax.mail.version}</version>
             </dependency>
+
+
 
         </dependencies>
     </dependencyManagement>
