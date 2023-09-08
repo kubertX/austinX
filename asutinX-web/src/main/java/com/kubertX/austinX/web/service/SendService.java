@@ -27,16 +27,21 @@ public class SendService {
     @Autowired
     private KafkaProducer kafkaProducer;
 
+    @Autowired
+    private DeduplicationService deduplicationService;
+
     public SendResponse send(MessageTemplateParam messageTemplateParam){
         return emailSendService.send(messageTemplateParam);
     }
 
     public SendResponse send2Pool(MessageTemplateParam messageTemplateParam){
+        SendResponse response = new SendResponse("0","");
+        //
+
         EmailTask task = applicationContext.getBean(EmailTask.class);
         task.setTaskInfo(messageTemplateParam);
         ExecutorService executorService = sendExecutorHandler.getExecutorService(ChannelTypeEnum.EMAIL);
         executorService.execute(task);
-        SendResponse response = new SendResponse("0","");
         return response;
     }
 

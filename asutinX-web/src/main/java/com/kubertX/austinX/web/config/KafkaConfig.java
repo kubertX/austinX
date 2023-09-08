@@ -2,7 +2,6 @@ package com.kubertX.austinX.web.config;
 
 import com.kubertX.austinX.web.constants.KafkaConstants;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

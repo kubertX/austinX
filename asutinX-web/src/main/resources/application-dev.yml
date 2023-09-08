@@ -1,9 +1,9 @@
 spring:
   # 数据源配置
   datasource:
-    url: jdbc:mysql://localhost:3306/austinX?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/austin?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: rootroot
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     # springboot 默认连接池 hikari 配置
     hikari:
@@ -21,6 +21,29 @@ spring:
       max-lifetime: 60000
       # 等待超时时间，默认30秒
       connection-timeout: 30000
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: spring-boot-demo
+      # 手动提交
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 60000
+    listener:
+      log-container-config: false
+      concurrency: 5
+      # 手动提交
+      ack-mode: manual_immediate
 
 
 
