@@ -46,9 +46,11 @@ public class DeduplicationService {
         String key = DEDUPLICATION_KEY + messageTemplateParam.getId()
                 + CommonConstant.COLON + messageTemplateParam.getReceiver();
         String score = String.valueOf(System.currentTimeMillis());
-        String timeGap = String.valueOf(5 * 1000);
+        String timeGap = String.valueOf(60* 1000);
+        String count = "2";
         String scoreValue = UUID.randomUUID().toString();
-        if(redisUtils.execLimitLua(redisScript, Collections.singletonList(key),timeGap,score,scoreValue)){
+        if(redisUtils.execLimitLua(redisScript, Collections.singletonList(key),timeGap,score,count,scoreValue)){
+            log.info("deduplication filter key :{}",key);
             messageTemplateParam.setReceiver("");
         }
 

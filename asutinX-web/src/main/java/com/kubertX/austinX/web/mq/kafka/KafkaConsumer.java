@@ -25,6 +25,7 @@ public class KafkaConsumer {
     public void receive(ConsumerRecord record, Acknowledgment acknowledgment){
         log.info("kafka consumer receive msg :{}", record.toString());
         try {
+
             String value = (String) record.value();
             log.info("business msg:{}",value);
             MessageTemplateParam messageTemplateParam = JSON.parseObject(value, MessageTemplateParam.class);

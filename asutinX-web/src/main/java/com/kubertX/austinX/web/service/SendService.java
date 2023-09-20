@@ -1,5 +1,6 @@
 package com.kubertX.austinX.web.service;
 
+import com.google.common.base.Strings;
 import com.kubertX.austinX.web.domain.EmailTask;
 import com.kubertX.austinX.web.enums.ChannelTypeEnum;
 import com.kubertX.austinX.web.handler.SendExecutorHandler;
@@ -36,8 +37,11 @@ public class SendService {
 
     public SendResponse send2Pool(MessageTemplateParam messageTemplateParam){
         SendResponse response = new SendResponse("0","");
-        //
-
+        // 去重
+        deduplicationService.deduplication(messageTemplateParam);
+        if(Strings.isNullOrEmpty(messageTemplateParam.getReceiver())){
+            return response;
+        }
         EmailTask task = applicationContext.getBean(EmailTask.class);
         task.setTaskInfo(messageTemplateParam);
         ExecutorService executorService = sendExecutorHandler.getExecutorService(ChannelTypeEnum.EMAIL);
